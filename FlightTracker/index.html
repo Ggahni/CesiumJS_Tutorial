@@ -3,6 +3,7 @@
 
 <head>
   <script src="https://cesium.com/downloads/cesiumjs/releases/1.82/Build/Cesium/Cesium.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
   <link href="https://cesium.com/downloads/cesiumjs/releases/1.82/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 
   <link href="style.css" rel="stylesheet">
@@ -16,6 +17,21 @@
     const viewer = new Cesium.Viewer('cesiumContainer', {
       terrainProvider: Cesium.createWorldTerrain()
     });
+    var trace1 = {
+      x: [1, 2, 3, 4],
+      y: [10, 15, 13, 17],
+      type: 'scatter'
+    };
+
+    var trace2 = {
+      x: [1, 2, 3, 4],
+      y: [16, 5, 11, 9],
+      type: 'scatter'
+    };
+    var data = [trace1, trace2];
+    Plotly.newPlot('myDiv', data);
+    </script>
+    <script>
     const osmBuildings = viewer.scene.primitives.add(Cesium.createOsmBuildings());
     // This is one of the first radar samples collected for our flight.
     const flightData = JSON.parse(
@@ -26,7 +42,7 @@
       const dataPoint = flightData[i];
 
       viewer.entities.add({
-        description: `Location: (${dataPoint.longitude}, ${dataPoint.latitude}, ${dataPoint.height})`,
+        description: `Location: (${dataPoint.longitude}, ${dataPoint.latitude}, ${dataPoint.height})` + `<div id="tester" style="width:300px;height:250px;"><img width=75% src="/plot.jpg"/></div>`,
         position: Cesium.Cartesian3.fromDegrees(dataPoint.longitude, dataPoint.latitude, dataPoint.height),
         point: { pixelSize: 10, color: Cesium.Color.RED }
       });
@@ -34,6 +50,22 @@
 
     //Fly Camera to this point.
     viewer.flyTo(pointEntity);
+  </script>
+  <script>
+    var trace1 = {
+      x: [1, 2, 3, 4],
+      y: [10, 15, 13, 17],
+      type: 'scatter'
+    };
+
+    var trace2 = {
+      x: [1, 2, 3, 4],
+      y: [16, 5, 11, 9],
+      type: 'scatter'
+    };
+
+    var data = [trace1, trace2];
+    Plotly.newPlot('myDiv', data);
   </script>
 </body>
 
